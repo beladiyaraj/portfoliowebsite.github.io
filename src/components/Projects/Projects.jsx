@@ -7,18 +7,8 @@ import "./Projects.css";
 
 const Projects = forwardRef((props, ProjectRef) => {
   const [hoveringIndex, setHoveringIndex] = useState(null); // Track which div is being hovered
-  const [expandedStates, setExpandedStates] = useState([]);
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [mouseX, setMouseX] = useState(0);
-  const [mouseY, setMouseY] = useState(0);
   const animationRef = useRef(null); // Another ref specific to this component
   const isInView = useInView(animationRef, { once: false }); // Trigger animation once when in view
-
-  const handleMouseMove = (e) => {
-    setMouseX(e.pageX); // Use pageX instead of clientX
-    setMouseY(e.pageY); // Use pageY instead of clientY
-    console.log("(" + e.pageX + "," + e.pageY + ")");
-  };
 
   const handleMouseEnter = (index) => {
     setHoveringIndex(index); // Set the hovered div's index
@@ -26,19 +16,6 @@ const Projects = forwardRef((props, ProjectRef) => {
 
   const handleMouseLeave = () => {
     setHoveringIndex(null); // Reset the hover state
-  };
-
-  const handleToggle = () => {
-    setIsExpanded(!isExpanded); // Toggle the expanded state
-  };
-
-  const toggleReadMore = (index) => {
-    // Toggle the expanded state for the specific project
-    setExpandedStates((prev) => {
-      const newStates = [...prev];
-      newStates[index] = !newStates[index];
-      return newStates;
-    });
   };
 
   const projects = [
@@ -82,7 +59,6 @@ const Projects = forwardRef((props, ProjectRef) => {
             key={index}
             onMouseEnter={() => handleMouseEnter(index)}
             onMouseLeave={handleMouseLeave}
-            onMouseMove={handleMouseMove} // Track mouse position
             className="project-item"
           >
             <p className="project-title">{project.title}</p>

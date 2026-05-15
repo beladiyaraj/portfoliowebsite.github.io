@@ -1,84 +1,8 @@
-/* Primary Styles */
-body {
-  background-color: #ac274f; /* Main background */
-  color: #f2ddbb; /* Main text color */
+#root {
+  min-height: 100vh;
 }
 
-/* Accent Elements */
+a,
 button {
-  background-color: #d94875; /* Accent color for buttons */
-  color: #ffffff; /* Text color for buttons */
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #f29f91; /* Hover effect for buttons */
-}
-
-/* Headings and Navigation */
-h1, h2, h3 {
-  color: #ffffff; /* White for contrast */
-}
-
-nav {
-  background-color: #8f1f3d; /* Darker shade for the nav bar */
-}
-
-nav a {
-  color: #f2ddbb; /* Soft beige for nav links */
-  text-decoration: none;
-}
-
-nav a:hover {
-  color: #ffffff; /* Bright white on hover */
-}
-
-/* Borders and Dividers */
-hr {
-  border: 1px solid #4e202e; /* Dark maroon for dividers */
-}
-
-/* Links */
-a {
-  color: #274fac; /* Complementary deep blue for links */
-}
-
-a:hover {
-  color: #3c6bd9; /* Lighter blue for hover effect */
-}
-
-/* Cards or Containers */
-.card {
-  background-color: #e6d4c3; /* Muted beige-gray for card backgrounds */
-  color: #4e202e; /* Text color inside cards */
-  border: 1px solid #8f1f3d; /* Accent border */
-
-}
-
-.card:hover {
-  background-color: #f29f91; /* Subtle hover effect */
-}
-
-
-.container {
-  height: 100%; 
-   /* padding: 1vw 2vw; */
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  /* font-family: "Raleway", sans-serif; */
-  align-items: center;
-}
-
-
-.wrapper {
-  width: 90%;
-  height: 80%;
-  padding: 1vw 2vw;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  background-color: #1e1e1e;
+  font: inherit;
 }

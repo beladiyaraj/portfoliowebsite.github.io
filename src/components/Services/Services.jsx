@@ -1,4 +1,4 @@
-import React, { forwardRef,useRef, useState } from "react";
+import React, { forwardRef, useRef } from "react";
 import AnimatedCounter from "../Counter/Counter";
 import { motion, useInView } from "framer-motion";
 
@@ -45,7 +45,7 @@ const Services = forwardRef((props, ServicesRef) => {
                 </div>
                 <div className="freelancer-card-stats">
                   <div>
-                    <strong>Compeleted Jobs</strong>{" "}
+                    <strong>Completed Jobs</strong>{" "}
                     <AnimatedCounter targetNumber={0} duration={3} />
                   </div>
                   <div>
@@ -63,11 +63,11 @@ const Services = forwardRef((props, ServicesRef) => {
                 </div>
                 <div className="freelancer-card-stats">
                   <div>
-                    <strong>Compeleted Jobs</strong>{" "}
+                    <strong>Completed Jobs</strong>{" "}
                     <AnimatedCounter targetNumber={21} duration={3} />
                   </div>
                   <div>
-                    <strong>Jon Sucess Score</strong> 90%
+                    <strong>Job Success Score</strong> 90%
                   </div>
                 </div>
               </div>
@@ -77,7 +77,7 @@ const Services = forwardRef((props, ServicesRef) => {
     <h2>OR</h2>
         <div className="phone-and-email">
           <div style={{ fontSize: 50, color: "#fff", fontWeight: 100 }}>
-            Directly approch me via
+            Directly approach me via
           </div>
           <div className="contact-buttons">
             <a
