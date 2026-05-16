@@ -3,18 +3,21 @@ import React, { useRef } from "react";
 import "./LayoutWrapper.css";
 import {
   ContactSection,
+  CertificationCard,
   ExperienceCard,
   FloatingDock,
   Hero,
-  MoreWorkCard,
+  IntroOverlay,
   SectionLabel,
   SelectedWorkCard,
+  SkillGroup,
 } from "./PortfolioSections";
 import {
+  certifications,
   contactLinks,
   experienceCards,
-  moreWorks,
   selectedWorks,
+  skillGroups,
 } from "./portfolioData";
 import { usePortfolioMotion } from "./usePortfolioMotion";
 
@@ -24,6 +27,7 @@ function LayoutWrapper() {
 
   return (
     <main className="portfolio-page" ref={pageRef}>
+      <IntroOverlay />
       <Hero />
       <FloatingDock />
 
@@ -45,15 +49,24 @@ function LayoutWrapper() {
         </div>
       </section>
 
-      <section className="section" id="github">
-        <SectionLabel number="03" title="More from GitHub" />
+      <section className="section" id="skills">
+        <SectionLabel number="03" title="Skills" />
         <p className="section-intro reveal">
-          A compact map of the engineering areas I keep building around. Each
-          tile links back to my public work and conversation starters.
+          Compact working stack across cloud, DevOps, AI backend, IoT,
+          automation, and production governance.
         </p>
-        <div className="more-grid">
-          {moreWorks.map((item) => (
-            <MoreWorkCard key={item.title} item={item} />
+        <div className="skills-grid">
+          {skillGroups.map((group) => (
+            <SkillGroup key={group.title} group={group} />
+          ))}
+        </div>
+      </section>
+
+      <section className="section" id="certifications">
+        <SectionLabel number="04" title="Certifications" />
+        <div className="cert-grid">
+          {certifications.map((cert) => (
+            <CertificationCard key={cert.title} cert={cert} />
           ))}
         </div>
       </section>

@@ -8,6 +8,12 @@ jest.mock("gsap", () => ({
     set: jest.fn(),
     timeline: () => ({
       from: jest.fn().mockReturnThis(),
+      to: jest.fn().mockReturnThis(),
+      set: jest.fn().mockReturnThis(),
+      call: jest.fn(function (callback) {
+        callback();
+        return this;
+      }),
     }),
     context: (callback) => {
       callback();
@@ -27,6 +33,7 @@ jest.mock("gsap", () => ({
 jest.mock("gsap/ScrollTrigger", () => ({
   ScrollTrigger: {
     update: jest.fn(),
+    refresh: jest.fn(),
     getAll: () => [],
   },
 }));

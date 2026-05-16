@@ -3,7 +3,6 @@ import {
   FaExternalLinkAlt,
   FaGithub,
   FaLinkedinIn,
-  FaPhoneAlt,
   FaRegCalendarAlt,
 } from "react-icons/fa";
 import { FaSquareUpwork } from "react-icons/fa6";
@@ -24,8 +23,9 @@ const iconMap = {
   email: <FaEnvelope />,
   fastapi: <SiFastapi />,
   fiverr: <TbBrandFiverr />,
+  github: <FaGithub />,
   kubernetes: <SiKubernetes />,
-  phone: <FaPhoneAlt />,
+  linkedin: <FaLinkedinIn />,
   upwork: <FaSquareUpwork />,
 };
 
@@ -46,10 +46,14 @@ export function Hero() {
 
       <div className="hero-title" aria-hidden="true">
         <div className="hero-word">
-          <span>Raj</span>
+          <span className="hero-word-mask">
+            <span>Raj</span>
+          </span>
         </div>
         <div className="hero-word">
-          <span>Beladiya</span>
+          <span className="hero-word-mask">
+            <span>Beladiya</span>
+          </span>
         </div>
       </div>
       <h1 className="sr-only">Raj Beladiya</h1>
@@ -62,6 +66,7 @@ export function Hero() {
 
       <div className="hero-content">
         <p className="hero-copy">
+          <span className="copy-shape" aria-hidden="true" />
           <strong>AWS Cloud Engineer</strong> from India building{" "}
           <strong>Cloud Infrastructure</strong>,{" "}
           <strong>DevOps Pipelines</strong>, <strong>Python APIs</strong>,{" "}
@@ -78,7 +83,26 @@ export function Hero() {
           </a>
         </div>
       </div>
+
+      <div className="hero-side-rail" aria-hidden="true">
+        <span>Raj-Beladiya</span>
+        <i />
+      </div>
     </section>
+  );
+}
+
+export function IntroOverlay() {
+  return (
+    <div className="intro-overlay intro-overlay-root" aria-hidden="true">
+      <div className="intro-word-mask intro-word-mask-top">
+        <span className="intro-word intro-word-raj">Raj</span>
+      </div>
+      <div className="intro-word-mask intro-word-mask-bottom">
+        <span className="intro-word intro-word-beladiya">Beladiya</span>
+      </div>
+      <div className="intro-centerline" />
+    </div>
   );
 }
 
@@ -138,51 +162,69 @@ export function SelectedWorkCard({ work }) {
           {work.index} {"//"} {work.category}
         </p>
         <h2>{work.title}</h2>
+        <p className="work-role">{work.role}</p>
         <p>{work.description}</p>
-        <a href={links.email}>
+        <a href={work.href} target="_blank" rel="noreferrer">
           {work.cta}
           <FaExternalLinkAlt />
         </a>
         <TagRow tags={work.tags} />
+        {work.quote ? <blockquote>{work.quote}</blockquote> : null}
       </div>
       <div className="work-preview">
         {work.image ? (
           <img src={work.image} alt={`${work.title} project preview`} />
         ) : (
-          <span>{work.title}</span>
+          <span>{work.preview || work.title}</span>
         )}
       </div>
     </article>
   );
 }
 
-export function MoreWorkCard({ item }) {
+export function SkillGroup({ group }) {
   return (
-    <a
-      className="more-card reveal"
-      href={links.github}
-      target="_blank"
-      rel="noreferrer"
-    >
-      <span className="more-icon">{iconMap[item.icon]}</span>
-      <h3>{item.title}</h3>
-      <p>{item.description}</p>
-      <i>Open GitHub</i>
-    </a>
+    <article className="skill-card reveal">
+      <h3>{group.title}</h3>
+      <TagRow tags={group.skills} />
+    </article>
+  );
+}
+
+export function CertificationCard({ cert }) {
+  return (
+    <article className="cert-card reveal">
+      <div className="cert-meta">
+        {cert.meta.map((item) => (
+          <span key={item}>{item}</span>
+        ))}
+      </div>
+      <div className="cert-body">
+        <h3>{cert.title}</h3>
+        <p>{cert.provider}</p>
+      </div>
+      <div className="cert-footer">
+        <TagRow tags={cert.tags} />
+        <a href={cert.href} target="_blank" rel="noreferrer">
+          View credential
+          <FaExternalLinkAlt />
+        </a>
+      </div>
+    </article>
   );
 }
 
 export function ContactSection({ contactLinks }) {
   return (
     <section className="section contact-section" id="contact">
-      <SectionLabel number="04" title="Contact" />
+      <SectionLabel number="05" title="Contact" />
       <div className="contact-panel reveal">
-        <p className="eyebrow">Available for cloud, automation, and backend work</p>
+        <p className="eyebrow">Available for AWS, Azure, DevOps, AI, and backend work</p>
         <h2>Have infrastructure to stabilize or a product to ship?</h2>
         <p>
           Send the requirement, current stack, and expected outcome. I can help
-          scope the cloud setup, backend path, automation workflow, or IoT
-          integration.
+          scope the cloud setup, DevOps path, AI workflow, backend service, or
+          automation integration.
         </p>
         <div className="contact-grid">
           {contactLinks.map((link) => (

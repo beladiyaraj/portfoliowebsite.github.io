@@ -36,7 +36,7 @@ const Services = forwardRef((props, ServicesRef) => {
             Work With Me on
           </div>
           <div className="freelancer-card-section">
-            <a href="https://www.fiverr.com/raj4________?public_mode=true">
+            <a href="https://www.fiverr.com/users/raj4________/seller_dashboard">
               <div className="freelancer-card">
                 <div className="freelancer-card-brand-logo">
                   <TbBrandFiverr
@@ -54,7 +54,7 @@ const Services = forwardRef((props, ServicesRef) => {
                 </div>
               </div>
             </a>
-            <a href="https://www.upwork.com/freelancers/beladiyaraj">
+            <a href="https://www.upwork.com/freelancers/~01d96e0f3dce2a7d6c">
               <div className="freelancer-card">
                 <div className="freelancer-card-brand-logo">
                   <FaSquareUpwork
@@ -85,9 +85,6 @@ const Services = forwardRef((props, ServicesRef) => {
               className="contact-button email-button"
             >
               rajbeladiya55@gmail.com
-            </a>
-            <a href="tel:+919313288221" className="contact-button phone-button">
-              +919313288221
             </a>
           </div>
         </div>
