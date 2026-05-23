@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import "./LayoutWrapper.css";
 import {
@@ -23,16 +23,41 @@ import { usePortfolioMotion } from "./usePortfolioMotion";
 
 function LayoutWrapper() {
   const pageRef = useRef(null);
+  const [themeVariant, setThemeVariant] = useState(() => {
+    if (typeof window === "undefined") {
+      return "split";
+    }
+
+    return window.localStorage.getItem("portfolio-theme-variant") || "split";
+  });
+
+  useEffect(() => {
+    window.localStorage.setItem("portfolio-theme-variant", themeVariant);
+  }, [themeVariant]);
+
   usePortfolioMotion(pageRef);
 
   return (
-    <main className="portfolio-page" ref={pageRef}>
+    <main className="portfolio-page" data-theme-variant={themeVariant} ref={pageRef}>
       <IntroOverlay />
-      <Hero />
+      <Hero themeVariant={themeVariant} onThemeChange={setThemeVariant} />
       <FloatingDock />
 
-      <section className="section" id="experience">
-        <SectionLabel number="01" title="Experience" />
+      <section className="section" id="skills">
+        <SectionLabel number="01" title="Skills" />
+        <p className="section-intro reveal">
+          Cloud-first working stack across AWS, Azure, DevOps, backend
+          automation, AI integrations, and production governance.
+        </p>
+        <div className="skills-grid">
+          {skillGroups.map((group) => (
+            <SkillGroup key={group.title} group={group} />
+          ))}
+        </div>
+      </section>
+
+      <section className="section experience-section" id="experience">
+        <SectionLabel number="02" title="Experience" />
         <div className="experience-list">
           {experienceCards.map((card) => (
             <ExperienceCard key={card.title} card={card} />
@@ -40,24 +65,11 @@ function LayoutWrapper() {
         </div>
       </section>
 
-      <section className="section" id="work">
-        <SectionLabel number="02" title="Selected Works" />
+      <section className="section work-section" id="work">
+        <SectionLabel number="03" title="Projects" />
         <div className="selected-list">
           {selectedWorks.map((work) => (
             <SelectedWorkCard key={work.title} work={work} />
-          ))}
-        </div>
-      </section>
-
-      <section className="section" id="skills">
-        <SectionLabel number="03" title="Skills" />
-        <p className="section-intro reveal">
-          Compact working stack across cloud, DevOps, AI backend, IoT,
-          automation, and production governance.
-        </p>
-        <div className="skills-grid">
-          {skillGroups.map((group) => (
-            <SkillGroup key={group.title} group={group} />
           ))}
         </div>
       </section>

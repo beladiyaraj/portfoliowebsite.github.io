@@ -3,45 +3,25 @@ import {
   FaExternalLinkAlt,
   FaGithub,
   FaLinkedinIn,
-  FaRegCalendarAlt,
 } from "react-icons/fa";
 import { FaSquareUpwork } from "react-icons/fa6";
 import { TbBrandFiverr } from "react-icons/tb";
-import {
-  SiAmazonwebservices,
-  SiDocker,
-  SiFastapi,
-  SiKubernetes,
-} from "react-icons/si";
 
 import profileImage from "../assets/images/rajbeladiyaprofile-cutout.png";
 import { links } from "./portfolioData";
 
-const iconMap = {
-  aws: <SiAmazonwebservices />,
-  docker: <SiDocker />,
-  email: <FaEnvelope />,
-  fastapi: <SiFastapi />,
-  fiverr: <TbBrandFiverr />,
-  github: <FaGithub />,
-  kubernetes: <SiKubernetes />,
-  linkedin: <FaLinkedinIn />,
-  upwork: <FaSquareUpwork />,
-};
-
-export function Hero() {
+export function Hero({ themeVariant, onThemeChange }) {
   return (
     <section className="hero" id="home">
       <div className="hero-pills" aria-label="Portfolio status">
-        <span className="hero-pill views-pill">
-          <FaRegCalendarAlt />
-          <strong>2026</strong>
-          <span>Portfolio</span>
-        </span>
-        <span className="hero-pill work-pill">
+        <a className="hero-pill work-pill" href="#contact" aria-label="Open to work, go to contact">
           <i />
           Open To Work
-        </span>
+          <span className="work-pill-arrow" aria-hidden="true">
+            →
+          </span>
+        </a>
+        <ThemeSwitcher value={themeVariant} onChange={onThemeChange} />
       </div>
 
       <div className="hero-title" aria-hidden="true">
@@ -112,19 +92,33 @@ export function FloatingDock() {
       <a className="dock-brand" href="#home">
         Raj-Beladiya
       </a>
-      <a href={links.email} aria-label="Email">
-        <FaEnvelope />
-      </a>
-      <a href={links.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn">
-        <FaLinkedinIn />
-      </a>
-      <a href={links.github} target="_blank" rel="noreferrer" aria-label="GitHub">
-        <FaGithub />
-      </a>
-      <a href="#contact" aria-label="Contact section">
-        |
-      </a>
+      <DockIconLinks />
     </nav>
+  );
+}
+
+export function ThemeSwitcher({ value, onChange }) {
+  const options = [
+    ["split", "Use split theme"],
+    ["black", "Use black theme"],
+    ["white", "Use white theme"],
+  ];
+
+  return (
+    <div className="theme-switcher" aria-label="Theme variant">
+      {options.map(([id, label]) => (
+        <button
+          aria-pressed={value === id}
+          aria-label={label}
+          className={value === id ? "is-active" : undefined}
+          key={id}
+          onClick={() => onChange(id)}
+          type="button"
+        >
+          <span className={`theme-icon theme-icon-${id}`} aria-hidden="true" />
+        </button>
+      ))}
+    </div>
   );
 }
 
@@ -156,18 +150,23 @@ export function ExperienceCard({ card }) {
 
 export function SelectedWorkCard({ work }) {
   return (
-    <article className="work-card reveal">
+    <article
+      className="work-card reveal"
+      style={{ "--accent": work.accent, "--accent-alt": work.accentAlt || work.accent }}
+    >
       <div className="work-copy">
         <p className="work-index">
           {work.index} {"//"} {work.category}
         </p>
-        <h2>{work.title}</h2>
+        <div className="work-title-row">
+          <h2>{work.title}</h2>
+          <a className="work-open-link" href={work.href} target="_blank" rel="noreferrer">
+            {work.cta}
+            <FaExternalLinkAlt />
+          </a>
+        </div>
         <p className="work-role">{work.role}</p>
         <p>{work.description}</p>
-        <a href={work.href} target="_blank" rel="noreferrer">
-          {work.cta}
-          <FaExternalLinkAlt />
-        </a>
         <TagRow tags={work.tags} />
         {work.quote ? <blockquote>{work.quote}</blockquote> : null}
       </div>
@@ -184,7 +183,10 @@ export function SelectedWorkCard({ work }) {
 
 export function SkillGroup({ group }) {
   return (
-    <article className="skill-card reveal">
+    <article
+      className={`skill-card skill-card-${group.tone} reveal`}
+      style={{ "--accent": group.accent }}
+    >
       <h3>{group.title}</h3>
       <TagRow tags={group.skills} />
     </article>
@@ -193,7 +195,7 @@ export function SkillGroup({ group }) {
 
 export function CertificationCard({ cert }) {
   return (
-    <article className="cert-card reveal">
+    <article className="cert-card reveal" style={{ "--accent": cert.accent }}>
       <div className="cert-meta">
         {cert.meta.map((item) => (
           <span key={item}>{item}</span>
@@ -216,45 +218,110 @@ export function CertificationCard({ cert }) {
 
 export function ContactSection({ contactLinks }) {
   return (
-    <section className="section contact-section" id="contact">
-      <SectionLabel number="05" title="Contact" />
-      <div className="contact-panel reveal">
-        <p className="eyebrow">Available for AWS, Azure, DevOps, AI, and backend work</p>
-        <h2>Have infrastructure to stabilize or a product to ship?</h2>
-        <p>
-          Send the requirement, current stack, and expected outcome. I can help
-          scope the cloud setup, DevOps path, AI workflow, backend service, or
-          automation integration.
-        </p>
-        <div className="contact-grid">
+    <footer className="section contact-section site-footer" id="contact">
+      <div className="footer-shell reveal">
+        <div className="footer-lede">
+          <p className="eyebrow">Open To Work</p>
+          <h2>Need cloud systems shipped cleanly?</h2>
+          <p>
+            Send the requirement, current stack, and expected outcome. I can help
+            stabilize AWS or Azure infrastructure, build DevOps pipelines, ship
+            backend automation, and place AI workflows inside production cloud
+            systems.
+          </p>
+        </div>
+        <div className="footer-links" aria-label="Contact links">
           {contactLinks.map((link) => (
             <a
               href={link.href}
               target={link.href.startsWith("http") ? "_blank" : undefined}
               rel={link.href.startsWith("http") ? "noreferrer" : undefined}
               key={link.label}
+              style={{ "--accent": link.accent }}
             >
-              {iconMap[link.icon]}
               <span>{link.label}</span>
               <strong>{link.value}</strong>
+              <FaExternalLinkAlt aria-hidden="true" />
             </a>
           ))}
         </div>
+        <div className="footer-bottom" aria-label="Footer meta">
+          <span className="footer-work-status">
+            Open To Work
+          </span>
+          <div className="footer-dock-slot" aria-hidden="true" />
+          <a className="footer-top-link" href="#home" aria-label="Scroll to top">
+            <span className="footer-top-link-text">Scroll To Top</span>
+            <span className="footer-top-link-arrow" aria-hidden="true">
+              ↑
+            </span>
+          </a>
+        </div>
       </div>
-    </section>
+    </footer>
+  );
+}
+
+function DockIconLinks() {
+  return (
+    <>
+      <a href={links.upwork} target="_blank" rel="noreferrer" aria-label="Upwork">
+        <FaSquareUpwork />
+      </a>
+      <a href={links.email} aria-label="Email">
+        <FaEnvelope />
+      </a>
+      <a href={links.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn">
+        <FaLinkedinIn />
+      </a>
+      <a href={links.github} target="_blank" rel="noreferrer" aria-label="GitHub">
+        <FaGithub />
+      </a>
+    </>
   );
 }
 
 function MetricGrid({ metrics }) {
+  const rows = [metrics.slice(0, 3), metrics.slice(3)];
+
   return (
-    <div className="metric-grid">
-      {metrics.map(([value, label]) => (
-        <div className="fact-card" key={`${value}-${label}`}>
-          <strong>{value}</strong>
-          <span>{label}</span>
+    <div className="metric-grid proof-line">
+      {rows.map((row, rowIndex) => (
+        <div className="proof-row" key={`proof-row-${rowIndex}`}>
+          {row.map((metric, index) => (
+            <StatItem
+              key={`${metric.value}-${metric.label}`}
+              metric={metric}
+              showSeparator={index < row.length - 1}
+            />
+          ))}
         </div>
       ))}
     </div>
+  );
+}
+
+function StatItem({ metric, showSeparator }) {
+  return (
+    <>
+      <div className={`proof-stat${metric.stamp ? " proof-stat-stamp" : ""}`}>
+        <strong
+          className="stat-value"
+          data-target={metric.target ?? undefined}
+          data-prefix={metric.prefix ?? undefined}
+          data-suffix={metric.suffix ?? undefined}
+          style={{ "--stat-width": `${metric.value.length + 0.35}ch` }}
+        >
+          {metric.value}
+        </strong>
+        <span>{metric.label}</span>
+      </div>
+      {showSeparator ? (
+        <span className="proof-separator" aria-hidden="true">
+          |
+        </span>
+      ) : null}
+    </>
   );
 }
 

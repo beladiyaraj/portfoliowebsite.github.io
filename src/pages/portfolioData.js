@@ -12,53 +12,39 @@ export const links = {
 };
 
 export const stats = [
-  ["100%", "Job Success"],
-  ["Top", "Rated"],
-  ["$10K+", "Earnings"],
-  ["32", "Jobs"],
-  ["573", "Hours"],
-  ["0-4h", "Avg Response"],
+  { value: "100%", label: "Job Success", target: 100, suffix: "%" },
+  { value: "Top", label: "Rated", stamp: true },
+  { value: "$10K+", label: "Earnings", target: 10, prefix: "$", suffix: "K+" },
+  { value: "32", label: "Jobs", target: 32 },
+  { value: "573", label: "Hours", target: 573 },
+  { value: "0-4h", label: "Avg Response", target: 4, prefix: "0-", suffix: "h" },
 ];
 
 export const experienceCards = [
   {
-    date: "2023 -> Present",
-    role: "Senior Cloud Engineer",
-    title: "Cloud Systems",
-    subtitle: "AWS, Azure, GCP, DevOps, MLOps, and production infrastructure",
-    description:
-      "Designing secure, scalable, and cost-aware cloud systems across AWS, Azure, and GCP. I build CI/CD pipelines, containerized deployments, AI infrastructure, monitoring paths, and IAM-first environments that are ready for production workloads.",
-    metrics: [
-      ["3+", "Years"],
-      ["AWS", "Azure / GCP"],
-      ["MLOps", "AI pipelines"],
-      ["CI/CD", "Release ops"],
-    ],
-    tags: ["AWS", "Azure", "GCP", "Docker", "Terraform", "IAM", "Monitoring"],
-  },
-  {
     date: "Freelance",
-    role: "DevOps / AIOps Freelancer",
-    title: "Client Delivery",
-    subtitle: "Production-ready cloud, backend, automation, and AI workflows",
+    role: "Top Rated Cloud / DevOps Freelancer",
+    title: "Freelance Cloud Delivery",
+    subtitle: "Production cloud systems, DevOps pipelines, and AWS-first automation for real clients",
     description:
-      "Delivered 25+ client projects through Upwork and direct work, turning prototypes into stable infrastructure, Python backends, LLM workflows, SageMaker pipelines, Lambda systems, ECS services, and cloud automation with clear documentation.",
+      "Delivered 25+ client projects across AWS, Azure, DevOps, Python backends, SageMaker pipelines, Lambda systems, ECS services, and cloud automation. AI and backend work sits inside production cloud delivery, with focus on stable infrastructure, clear documentation, cost control, and handoff.",
     metrics: stats,
-    tags: ["Python", "FastAPI", "OpenAI APIs", "LangGraph", "SageMaker", "Lambda"],
+    tags: ["AWS", "Azure", "Python", "FastAPI", "OpenAI APIs", "LangGraph", "SageMaker", "Lambda"],
   },
 ];
 
 export const selectedWorks = [
   {
     index: "01",
-    category: "AI SEO / Marketing Automation",
+    category: "AWS Cloud / Marketing Automation",
     title: "Breevy",
     role: "Senior Cloud Engineer",
     description:
-      "SEO and marketing made easy with Breevy. Supported cloud architecture for AI-driven SEO and marketing automation tooling using managed AWS infrastructure and security-focused deployment paths.",
+      "SEO and marketing made easy with Breevy. Supported AWS architecture for AI-assisted marketing automation using managed cloud infrastructure, SageMaker workflows, and security-focused deployment paths.",
     cta: "Open Breevy",
     href: "https://breevy.ai",
     image: breevyPreview,
+    accent: "#14b8d4",
     tags: ["Amazon SageMaker", "AWS", "Elastic Beanstalk", "Cloud Security"],
   },
   {
@@ -71,18 +57,21 @@ export const selectedWorks = [
     cta: "Open CareSMS",
     href: "https://www.caresms.io/",
     image: caresmsPreview,
+    accent: "#0078d4",
+    accentAlt: "#ffd400",
     tags: ["Azure DevOps", "Docker", "GitHub", "Compliance", "Scheduling"],
   },
   {
     index: "03",
-    category: "AI Photo Organization",
+    category: "AWS Cloud / Photo Platform",
     title: "VIXC",
     role: "AWS Cloud Engineer",
     description:
-      "Smart photo management tool that makes finding, organizing, and sharing memories easier with AI. Built around cloud infrastructure, PostgreSQL, AI integration, Amplify, and Beanstalk delivery.",
+      "Smart photo management tool that makes finding, organizing, and sharing memories easier. Built around AWS infrastructure, PostgreSQL, API integration, Amplify, and Beanstalk delivery.",
     cta: "Open VIXC",
     href: "https://vixc.com",
     image: vixcPreview,
+    accent: "#2da8ff",
     tags: ["AWS", "PostgreSQL", "ChatGPT API", "AWS Amplify", "Beanstalk"],
     quote:
       "Raj is very pro efficient about the work! He delves work with proper documentation and in well-organized manner.",
@@ -97,6 +86,8 @@ export const selectedWorks = [
     cta: "Open CoFoundersLab",
     href: "https://cofounderslab.com",
     image: cofounderslabPreview,
+    accent: "#ff5a45",
+    accentAlt: "#008cff",
     tags: ["DevOps", "AWS Lambda", "Amazon ECS", "Jenkins", "AWS"],
   },
 ];
@@ -104,6 +95,8 @@ export const selectedWorks = [
 export const skillGroups = [
   {
     title: "Cloud",
+    tone: "cloud",
+    accent: "#ff9900",
     skills: [
       "AWS",
       "Azure",
@@ -119,6 +112,8 @@ export const skillGroups = [
   },
   {
     title: "DevOps",
+    tone: "devops",
+    accent: "#0078d4",
     skills: [
       "Docker",
       "Jenkins",
@@ -131,7 +126,9 @@ export const skillGroups = [
     ],
   },
   {
-    title: "AI / Backend",
+    title: "Backend / AI",
+    tone: "backend",
+    accent: "#14b8a6",
     skills: [
       "Python",
       "Node.js",
@@ -145,6 +142,8 @@ export const skillGroups = [
   },
   {
     title: "IoT / Automation",
+    tone: "iot",
+    accent: "#f59e0b",
     skills: [
       "Raspberry Pi",
       "Internet of Things",
@@ -155,6 +154,8 @@ export const skillGroups = [
   },
   {
     title: "Governance",
+    tone: "governance",
+    accent: "#64748b",
     skills: ["Cloud Security", "Compliance", "IAM", "Monitoring", "Cost Optimization"],
   },
 ];
@@ -165,6 +166,7 @@ export const certifications = [
     provider: "Amazon Web Services Training and Certification",
     meta: ["Issued October 2025", "Expires October 2028"],
     href: "https://www.credly.com/badges/29277c33-78e3-45fb-954c-2a856b80d02a/public_url",
+    accent: "#ff9900",
     tags: ["AWS", "AI", "Deep Learning", "Data Science", "Machine Learning"],
   },
   {
@@ -172,6 +174,7 @@ export const certifications = [
     provider: "Amazon Web Services Training and Certification",
     meta: ["Issued June 2025", "Expires June 2028"],
     href: "https://www.credly.com/badges/9eb68c8f-0233-4d5c-9d39-d79b9cb64f16",
+    accent: "#ff9900",
     tags: ["System Deployment", "Product Development", "AWS", "Cloud Computing"],
   },
   {
@@ -179,6 +182,7 @@ export const certifications = [
     provider: "Amazon Web Services Training and Certification",
     meta: ["AWS Credential", "Credly Verified"],
     href: "https://www.credly.com/badges/1bed980f-ed93-4ab2-8349-5279a81ac58e",
+    accent: "#ff9900",
     tags: ["AWS", "Cloud Computing", "Architectural Design", "Cloud Security"],
   },
 ];
@@ -189,29 +193,34 @@ export const contactLinks = [
     value: "rajbeladiya55@gmail.com",
     href: links.email,
     icon: "email",
+    accent: "#ea4335",
   },
   {
     label: "Upwork",
-    value: "100% Job Success",
+    value: "View Upwork profile",
     href: links.upwork,
     icon: "upwork",
+    accent: "#14a800",
   },
   {
     label: "LinkedIn",
-    value: "Raj Beladiya",
+    value: "Connect on LinkedIn",
     href: links.linkedin,
     icon: "linkedin",
+    accent: "#0a66c2",
   },
   {
     label: "GitHub",
-    value: "beladiyaraj",
+    value: "View GitHub work",
     href: links.github,
     icon: "github",
+    accent: "#ffffff",
   },
   {
     label: "Fiverr",
-    value: "Seller Dashboard",
+    value: "View Fiverr profile",
     href: links.fiverr,
     icon: "fiverr",
+    accent: "#1dbf73",
   },
 ];
