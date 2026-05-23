@@ -19,7 +19,6 @@ export function usePortfolioMotion(scopeRef) {
       let updateDockVisibility;
       let cleanupPreviewMotion;
       let cleanupAnchorScroll;
-      let anchorScrollActive = false;
       let dockState = "floating";
       let dockShown = false;
       let dockMorph;
@@ -354,7 +353,6 @@ export function usePortfolioMotion(scopeRef) {
 
           event.preventDefault();
           window.history.replaceState(null, "", `${window.location.pathname}${window.location.search}${hash}`);
-          anchorScrollActive = true;
 
           const finishAnchorScroll = () => {
             if (hash === "#home") {
@@ -368,7 +366,6 @@ export function usePortfolioMotion(scopeRef) {
               if (hash === "#home") {
                 forceTop();
               }
-              anchorScrollActive = false;
               updateDockVisibility?.();
             }, hash === "#home" ? 260 : 120);
           };
