@@ -1,4 +1,6 @@
 import {
+  FaArrowRight,
+  FaArrowUp,
   FaEnvelope,
   FaExternalLinkAlt,
   FaGithub,
@@ -18,7 +20,7 @@ export function Hero({ themeVariant, onThemeChange }) {
           <i />
           Open To Work
           <span className="work-pill-arrow" aria-hidden="true">
-            →
+            <FaArrowRight />
           </span>
         </a>
         <ThemeSwitcher value={themeVariant} onChange={onThemeChange} />
@@ -49,8 +51,9 @@ export function Hero({ themeVariant, onThemeChange }) {
           <span className="copy-shape" aria-hidden="true" />
           <strong>AWS Cloud Engineer</strong> from India building{" "}
           <strong>Cloud Infrastructure</strong>,{" "}
-          <strong>DevOps Pipelines</strong>, <strong>Python APIs</strong>,{" "}
-          <strong>IoT Systems</strong>, and <strong>Full-Stack Products</strong>.
+          <strong>DevOps Pipelines</strong>,{" "}
+          <strong>Python Backend Automation</strong>, and{" "}
+          <strong>Production Handoffs</strong>.
         </p>
         <div className="hero-actions" aria-label="Profile links">
           <IconLink href={links.github} label="GitHub Profile" icon={<FaGithub />} />
@@ -246,14 +249,12 @@ export function ContactSection({ contactLinks }) {
           ))}
         </div>
         <div className="footer-bottom" aria-label="Footer meta">
-          <span className="footer-work-status">
-            Open To Work
-          </span>
+          <span className="footer-work-status">Open To Work</span>
           <div className="footer-dock-slot" aria-hidden="true" />
           <a className="footer-top-link" href="#home" aria-label="Scroll to top">
             <span className="footer-top-link-text">Scroll To Top</span>
             <span className="footer-top-link-arrow" aria-hidden="true">
-              ↑
+              <FaArrowUp />
             </span>
           </a>
         </div>
@@ -304,7 +305,10 @@ function MetricGrid({ metrics }) {
 function StatItem({ metric, showSeparator }) {
   return (
     <>
-      <div className={`proof-stat${metric.stamp ? " proof-stat-stamp" : ""}`}>
+      <div
+        className={`proof-stat${metric.stamp ? " proof-stat-stamp" : ""}`}
+        data-label={metric.label}
+      >
         <strong
           className="stat-value"
           data-target={metric.target ?? undefined}

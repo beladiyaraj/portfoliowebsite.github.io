@@ -47,7 +47,7 @@ function LayoutWrapper() {
         <SectionLabel number="01" title="Skills" />
         <p className="section-intro reveal">
           Cloud-first working stack across AWS, Azure, DevOps, backend
-          automation, AI integrations, and production governance.
+          automation, monitoring, and production governance.
         </p>
         <div className="skills-grid">
           {skillGroups.map((group) => (

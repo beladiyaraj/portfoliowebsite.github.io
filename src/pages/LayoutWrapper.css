@@ -237,6 +237,7 @@ body::-webkit-scrollbar,
 
 .portfolio-page[data-theme-variant="white"] .experience-section .proof-stat span,
 .portfolio-page[data-theme-variant="white"] .experience-section .proof-separator,
+.portfolio-page[data-theme-variant="white"] .footer-work-status,
 .portfolio-page[data-theme-variant="white"] .footer-links span,
 .portfolio-page[data-theme-variant="white"] .footer-links svg {
   color: rgba(5, 5, 5, 0.58);
@@ -385,6 +386,10 @@ a:focus-visible {
   color: #76777d;
 }
 
+.hero-pill.work-pill span {
+  color: var(--ink);
+}
+
 .work-pill i {
   width: 9px;
   height: 9px;
@@ -412,9 +417,16 @@ a:focus-visible {
 }
 
 .work-pill-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   color: var(--ink);
-  font-size: 13px;
+  font-size: 11px;
   line-height: 1;
+}
+
+.work-pill-arrow svg {
+  display: block;
 }
 
 @keyframes workPulse {
@@ -583,6 +595,32 @@ a:focus-visible {
   color: #050505;
 }
 
+.hero-actions a[aria-label="Upwork Profile"]:hover,
+.hero-actions a[aria-label="Upwork Profile"]:focus-visible,
+.floating-dock a[aria-label="Upwork"]:hover,
+.floating-dock a[aria-label="Upwork"]:focus-visible {
+  color: #14a800;
+}
+
+.hero-actions a[aria-label="LinkedIn Profile"]:hover,
+.hero-actions a[aria-label="LinkedIn Profile"]:focus-visible,
+.floating-dock a[aria-label="LinkedIn"]:hover,
+.floating-dock a[aria-label="LinkedIn"]:focus-visible {
+  color: #0a66c2;
+}
+
+.hero-actions a[aria-label="Fiverr Profile"]:hover,
+.hero-actions a[aria-label="Fiverr Profile"]:focus-visible {
+  color: #1dbf73;
+}
+
+.floating-dock a[aria-label="Email"]:hover,
+.floating-dock a[aria-label="Email"]:focus-visible,
+.resume-link:hover,
+.resume-link:focus-visible {
+  color: #ea4335;
+}
+
 .hero-actions .resume-link {
   width: auto;
   min-width: 158px;
@@ -665,7 +703,7 @@ a:focus-visible {
   min-height: 44px;
   font-size: 17px;
   opacity: 0.78;
-  transition: opacity 180ms ease, transform 180ms ease;
+  transition: opacity 180ms ease, transform 180ms ease, color 180ms ease;
 }
 
 .floating-dock a:hover,
@@ -963,7 +1001,7 @@ a:focus-visible {
 
 .experience-section .proof-stat strong {
   display: inline-block;
-  min-width: var(--stat-width, 3ch);
+  min-width: max(var(--stat-width, 3ch), 2.4ch);
   color: #ffffff;
   font-family: var(--display);
   font-size: clamp(34px, 3.7vw, 58px);
@@ -986,6 +1024,10 @@ a:focus-visible {
   line-height: 1;
   letter-spacing: 0.15em;
   text-transform: uppercase;
+}
+
+.experience-section .proof-stat[data-label="Avg Response"] .stat-value {
+  min-width: 4.35ch;
 }
 
 .experience-section .proof-separator {
@@ -1610,7 +1652,7 @@ a:focus-visible {
 .footer-bottom {
   grid-column: 1 / -1;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(220px, auto) minmax(0, 1fr);
   gap: 14px 22px;
   align-items: center;
   align-self: end;
@@ -1650,6 +1692,7 @@ a:focus-visible {
   min-height: 1.2em;
   color: rgba(255, 255, 255, 0.62);
   text-align: right;
+  white-space: nowrap;
 }
 
 .footer-top-link:hover,
@@ -1658,8 +1701,15 @@ a:focus-visible {
 }
 
 .footer-top-link-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   font-size: 1.08em;
   line-height: 1;
+}
+
+.footer-top-link-arrow svg {
+  display: block;
 }
 
 .footer-bottom > .footer-top-link {
@@ -2060,9 +2110,9 @@ a:focus-visible {
   }
 
   .footer-bottom {
-    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-columns: auto minmax(0, 1fr) auto;
     justify-items: stretch;
-    gap: 12px;
+    gap: 10px;
     padding-top: 14px;
     font-size: 10px;
   }
@@ -2076,15 +2126,18 @@ a:focus-visible {
   .footer-dock-slot {
     order: 2;
     justify-self: end;
-    width: 180px;
+    width: min(176px, 46vw);
     min-height: 50px;
   }
 
   .footer-bottom > .footer-top-link {
-    grid-column: 1 / -1;
     order: 3;
     justify-self: end;
+    align-self: center;
     min-width: 0;
+    width: 44px;
+    min-height: 44px;
+    justify-content: center;
   }
 
   .footer-top-link-text {

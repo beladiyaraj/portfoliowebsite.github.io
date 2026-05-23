@@ -126,19 +126,10 @@ export const skillGroups = [
     ],
   },
   {
-    title: "Backend / AI",
+    title: "Backend Automation",
     tone: "backend",
     accent: "#14b8a6",
-    skills: [
-      "Python",
-      "Node.js",
-      "ChatGPT API",
-      "LangGraph",
-      "FastAPI",
-      "Flask",
-      "PostgreSQL",
-      "MySQL",
-    ],
+    skills: ["Python", "FastAPI", "Flask", "Node.js", "PostgreSQL", "MySQL", "OpenAI API", "LangGraph"],
   },
   {
     title: "IoT / Automation",

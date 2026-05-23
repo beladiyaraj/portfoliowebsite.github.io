@@ -14,13 +14,12 @@ export function usePortfolioMotion(scopeRef) {
       let lenis;
       let lenisRaf;
       let introFallback;
-      let magnetTimeout;
       let topLockFrame;
       let previousScrollRestoration;
       let updateDockVisibility;
       let cleanupPreviewMotion;
       let cleanupAnchorScroll;
-      let magnetActive = false;
+      let anchorScrollActive = false;
       let dockState = "floating";
       let dockShown = false;
       let dockMorph;
@@ -70,61 +69,9 @@ export function usePortfolioMotion(scopeRef) {
         });
 
         lenis.on("scroll", ScrollTrigger.update);
-        lenis.on("scroll", () => {
-          if (magnetActive) {
-            return;
-          }
-
-          if (magnetTimeout) {
-            window.clearTimeout(magnetTimeout);
-          }
-
-          magnetTimeout = window.setTimeout(() => {
-            settleToNearestSection();
-          }, 170);
-        });
         lenisRaf = (time) => lenis.raf(time * 1000);
         gsap.ticker.add(lenisRaf);
         gsap.ticker.lagSmoothing(0);
-      };
-      const settleToNearestSection = () => {
-        if (!lenis || reduceMotion || document.documentElement.classList.contains("intro-lock")) {
-          return;
-        }
-
-        const targets = gsap.utils.toArray(
-          "#skills, #experience, #work, #certifications, #contact"
-        );
-        if (!targets.length) {
-          return;
-        }
-
-        const scrollY = window.scrollY || document.documentElement.scrollTop || 0;
-        const threshold = window.innerHeight * (window.innerWidth <= 720 ? 0.28 : 0.36);
-        let closest;
-        let closestDistance = Number.POSITIVE_INFINITY;
-
-        targets.forEach((target) => {
-          const top = target.getBoundingClientRect().top + scrollY;
-          const distance = Math.abs(top - scrollY);
-          if (distance < closestDistance) {
-            closest = top;
-            closestDistance = distance;
-          }
-        });
-
-        if (closest === undefined || closestDistance < 4 || closestDistance > threshold) {
-          return;
-        }
-
-        magnetActive = true;
-        lenis.scrollTo(closest, {
-          duration: 0.4,
-          easing: (t) => 1 - Math.pow(1 - t, 3),
-          onComplete: () => {
-            magnetActive = false;
-          },
-        });
       };
       const lockIntro = () => {
         previousScrollRestoration = window.history.scrollRestoration;
@@ -398,10 +345,6 @@ export function usePortfolioMotion(scopeRef) {
       const setupAnchorScroll = () => {
         const links = gsap.utils.toArray('a[href="#home"], a[href="#contact"]');
         const onClick = (event) => {
-          if (!lenis || reduceMotion) {
-            return;
-          }
-
           const hash = event.currentTarget?.getAttribute("href");
           const targetElement = hash === "#home" ? undefined : document.querySelector(hash);
           const target = hash === "#home" ? 0 : targetElement?.getBoundingClientRect().top + window.scrollY;
@@ -411,18 +354,46 @@ export function usePortfolioMotion(scopeRef) {
 
           event.preventDefault();
           window.history.replaceState(null, "", `${window.location.pathname}${window.location.search}${hash}`);
-          if (magnetTimeout) {
-            window.clearTimeout(magnetTimeout);
-            magnetTimeout = undefined;
+          anchorScrollActive = true;
+
+          const finishAnchorScroll = () => {
+            if (hash === "#home") {
+              lenis?.scrollTo?.(0, { immediate: true, force: true });
+              forceTop();
+              window.requestAnimationFrame(() => {
+                forceTop();
+              });
+            }
+            window.setTimeout(() => {
+              if (hash === "#home") {
+                forceTop();
+              }
+              anchorScrollActive = false;
+              updateDockVisibility?.();
+            }, hash === "#home" ? 260 : 120);
+          };
+
+          if (!lenis || reduceMotion) {
+            try {
+              window.scrollTo({
+                top: target,
+                behavior: reduceMotion ? "auto" : "smooth",
+              });
+            } catch {
+              window.scrollTo?.(0, target);
+              document.documentElement.scrollTop = target;
+              document.body.scrollTop = target;
+            }
+            window.setTimeout(finishAnchorScroll, hash === "#home" ? 650 : 780);
+            return;
           }
-          magnetActive = true;
+
           lenis.scrollTo(target, {
             duration: hash === "#home" ? 0.62 : 0.76,
             easing: (t) => 1 - Math.pow(1 - t, 3),
-            onComplete: () => {
-              magnetActive = false;
-              updateDockVisibility?.();
-            },
+            force: true,
+            lock: true,
+            onComplete: finishAnchorScroll,
           });
         };
 
@@ -549,9 +520,6 @@ export function usePortfolioMotion(scopeRef) {
       return () => {
         if (introFallback) {
           window.clearTimeout(introFallback);
-        }
-        if (magnetTimeout) {
-          window.clearTimeout(magnetTimeout);
         }
         unlockIntro();
         document.documentElement.classList.remove("dock-visible", "footer-dock-snap", "dock-inline", "dock-morphing");
