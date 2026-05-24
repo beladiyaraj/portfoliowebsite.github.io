@@ -1588,6 +1588,7 @@ a:focus-visible {
   gap: 18px;
   align-items: center;
   min-height: clamp(56px, 6vh, 72px);
+  padding-inline: 18px 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   color: #ffffff;
   text-decoration: none;
@@ -2099,6 +2100,7 @@ a:focus-visible {
     gap: 4px 14px;
     min-height: 48px;
     padding-block: 7px;
+    padding-inline: 14px 0;
   }
 
   .footer-links span {
