@@ -32,7 +32,7 @@
       "react-app/jest"
     ]
   },
-  "homepage": "https://www.rajbeladiya.live",
+  "homepage": ".",
   "browserslist": {
     "production": [
       ">0.2%",
